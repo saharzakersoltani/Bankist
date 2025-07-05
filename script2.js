@@ -37,3 +37,26 @@ console.log(Number.isFinite(23 / 0));
 console.log(Number.isInteger(23));
 console.log(Number.isInteger(23.0));
 console.log(Number.isInteger(23 / 0));
+
+/////////////////////////////////////////////////
+// lecture: Math and rounding
+
+// sqrt
+console.log(Math.sqrt(25));
+console.log(25 ** (1 / 2));
+console.log(8 ** (1 / 3));
+
+// max and min
+console.log(Math.max(8, 5, 45, 2, 9));
+console.log(Math.min(8, 5, 45, 2, 9));
+
+console.log(Math.PI * Number.parseInt('100e'));
+
+console.log(Math.trunc(Math.random() * 6) + 1);
+
+// Create a function to get random numbr
+const randomNumber = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+console.log(randomNumber(10, 20));
+console.log(randomNumber(0, 2));
