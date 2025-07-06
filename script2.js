@@ -84,3 +84,27 @@ console.group(Math.ceil(-63.9));
 
 // Rounding decimals
 console.log((98.258).toFixed(2));
+
+/////////////////////////////////////////////////
+// lecture: The remainder operator
+
+// remainder
+console.log(5 % 2);
+console.log(5 / 2);
+
+// Create a function to check if a number is even or not
+const isEven = n => n % 2 === 0;
+console.log(isEven(4));
+console.log(isEven(15));
+console.log(isEven(28));
+console.log(isEven(76));
+
+// make the rows of the bankist project colorful😄
+
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements__row')].forEach(
+    (movementRow, index) => {
+      if (index % 2 === 0) movementRow.style.backgroundColor = 'blue';
+    }
+  );
+});
