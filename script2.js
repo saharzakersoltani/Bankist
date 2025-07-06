@@ -60,3 +60,27 @@ const randomNumber = (min, max) =>
 
 console.log(randomNumber(10, 20));
 console.log(randomNumber(0, 2));
+
+// Rounding integers
+console.log(Math.round(23.1)); // Always round to the neaarst integer
+console.log(Math.round(23.9));
+console.log(Math.round(-23.1));
+console.log(Math.round(-23.9));
+
+console.log(Math.floor(45.1)); // round down
+console.log(Math.floor(45.9));
+console.log(Math.floor(-45.1));
+console.log(Math.floor(-45.9));
+
+console.log(Math.trunc(78.1)); // removes any decimal parts
+console.log(Math.trunc(78.9));
+console.log(Math.trunc(-78.1));
+console.log(Math.trunc(-78.9));
+
+console.log(Math.ceil(63.1)); // round up
+console.log(Math.ceil(63.9));
+console.log(Math.ceil(-63.1));
+console.group(Math.ceil(-63.9));
+
+// Rounding decimals
+console.log((98.258).toFixed(2));
