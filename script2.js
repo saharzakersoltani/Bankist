@@ -161,7 +161,7 @@ console.log(hugeNum + 'its very big number!!!!');
 console.log(16n / 4n);
 console.log(12n / 5n);
 console.log(12 / 5);
-*/
+*
 
 /////////////////////////////////////////////////
 // lecture: creating dates
@@ -203,3 +203,4 @@ console.log(new Date(1751810676002));
 
 future.setFullYear(2052);
 console.log(future);
+*/

@@ -81,21 +81,30 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-const displayMovements = function (movements, sort) {
+const displayMovements = function (acc, sort) {
   containerMovements.innerHTML = '';
 
-  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements; //use slice() to have a shallow copy of movements
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements; //use slice() to have a shallow copy of movements
 
   movs.forEach(function (movement, index) {
     const type = movement > 0 ? 'deposit' : 'withdrawal';
+
+    const displayDate = new Date(acc.movementsDates[index]);
+    const day = `${displayDate.getDate()}`.padStart(2, 0);
+    const month = `${displayDate.getMonth() + 1}`.padStart(2, 0);
+    const year = displayDate.getFullYear();
 
     const html = `
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${
       index + 1
     } ${type}</div>
+    <div class="movements__date">${day}/${month}/${year}</div>
           <div class="movements__value">${movement.toFixed(2)}€</div>
         </div>
+    
       `;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -109,6 +118,15 @@ const displayBalace = function (acc) {
   }, 0);
   labelBalance.textContent = `${acc.balace.toFixed(2)} €`;
 };
+
+// Create current date and time
+const now = new Date();
+const day = `${now.getDate()}`.padStart(2, 0); // 02
+const month = `${now.getMonth() + 1}`.padStart(2, 0); // 08
+const year = now.getFullYear();
+const hour = now.getHours();
+const minutes = now.getMinutes();
+labelDate.textContent = `${day}/${month}/${year}, ${hour}:${minutes}`;
 
 // display the summary of movements in (in, out, interest)
 const displaySummary = function (acc) {
@@ -143,12 +161,11 @@ const createUsername = function (accs) {
   });
 };
 createUsername(accounts);
-console.log(accounts);
 
 // write one function for displays in order not to make our code ugly all of the time😉
 const display = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
   // Display balance
   displayBalace(acc);
   // Display summary
