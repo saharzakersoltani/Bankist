@@ -128,7 +128,7 @@ console.log(PI);
 
 console.log(Number('235_54')); // NaN
 console.log(parseInt('23_54')); // 23
-*/
+*
 /////////////////////////////////////////////////
 // lecture: working with bigInt
 
@@ -161,3 +161,45 @@ console.log(hugeNum + 'its very big number!!!!');
 console.log(16n / 4n);
 console.log(12n / 5n);
 console.log(12 / 5);
+*/
+
+/////////////////////////////////////////////////
+// lecture: creating dates
+
+// Create a date: (There are 4 ways)
+
+const now = new Date();
+console.log(now);
+
+console.log(new Date('Sun Jul 06 2025 16:52:42'));
+
+console.log(new Date());
+
+console.log(new Date(account1.movementsDates[0]));
+
+console.log(new Date(2038, 10, 33, 18, 32, 20));
+
+// Unix timestamp started from Jan 1 1970
+console.log(new Date(0));
+console.log(new Date(3 * 24 * 60 * 60 * 1000)); // three days after the unix date => jan 4 1970  THIS IS THE TIMESTAMP
+
+// Working with dates
+const future = new Date(2030, 3, 4, 13, 25, 30);
+console.log(future);
+
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate());
+console.log(future.getDay());
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+console.log(future.getTime());
+console.log(new Date(1901526930000));
+
+console.log(Date.now());
+console.log(new Date(1751810676002));
+
+future.setFullYear(2052);
+console.log(future);
