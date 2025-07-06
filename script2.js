@@ -1,4 +1,5 @@
 'use strict';
+/*
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // lecture: converting and checking numbers
@@ -127,3 +128,36 @@ console.log(PI);
 
 console.log(Number('235_54')); // NaN
 console.log(parseInt('23_54')); // 23
+*/
+/////////////////////////////////////////////////
+// lecture: working with bigInt
+
+console.log(2 ** 53 - 1);
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(2 ** 53 + 4); // it doesn't get the answer correctly because 2 ** 53 -1 is a large number and all numbrs after this is not safe in JS. so we should use bigInt numbers
+
+console.log(127736736778565665675878676876786787674424424);
+console.log(127736736778565665675878676876786787674424424n);
+console.log(BigInt(127736736778565665675878676876786787674424424));
+
+// Exceptions
+console.log(15n + 3n);
+console.log(20n > 6);
+console.log(10n > 4n);
+console.log(20n === 20);
+console.log(20n == 20);
+console.log(20n == '20');
+//console.log(Math.sqrt(4n)); // not work
+
+const hugeNum = 4564794134749964563497643498n;
+const num = 25;
+//console.log(hugeNum * num); //Cannot mix BigInt and other types
+console.log(BigInt(num) * hugeNum);
+
+console.log(hugeNum + 'its very big number!!!!');
+
+// Diversions
+//console.log(16n / 4); // not work
+console.log(16n / 4n);
+console.log(12n / 5n);
+console.log(12 / 5);
