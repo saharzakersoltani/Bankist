@@ -221,7 +221,7 @@ const data1 = console.log(
 const data2 = console.log(
   calcDaysPassed2(new Date(2020, 1, 8), new Date(2020, 4, 10))
 );
-*/
+
 /////////////////////////////////////////////////
 // lecture: Internationalization Dates (INTL)
 const locale2 = navigator.language;
@@ -239,3 +239,22 @@ const option2 = {
 const now2 = new Date();
 
 console.log(new Intl.DateTimeFormat(locale2, option2).format(now2));
+*/
+
+/////////////////////////////////////////////////
+// lecture: Internationalization Numbers (INTL)
+const number1 = 1235468242.56;
+const options1 = {
+  style: 'currency',
+  unit: 'celsius',
+  currency: 'EUR',
+  // useGrouping: false,
+};
+
+console.log(new Intl.NumberFormat('de-DE', options1).format(number1));
+console.log(new Intl.NumberFormat('en-US', options1).format(number1));
+console.log(new Intl.NumberFormat('fa-IR', options1).format(number1));
+
+console.log(
+  new Intl.NumberFormat(navigator.language, options1).format(number1)
+);

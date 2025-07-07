@@ -98,28 +98,35 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
 // Functions
+// make a function for display dates
+const formatMovementsDate = function (date, locale) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (1000 * 24 * 60 * 60));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+
+  if (daysPassed === 0) return `Today`;
+  if (daysPassed === 1) return `Yesterday`;
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  else {
+    // const day = `${date.getDate()}`.padStart(2, 0);
+    // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+    // const year = date.getFullYear();
+    // return `${day}/${month}/${year}`;
+    return new Intl.DateTimeFormat(locale).format(date);
+  }
+};
+
+// make a function to display numbers based on INTL API 🤑🤑🤑🤑
+const formatCur = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+};
 
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
-
-  // make a function for display dates
-  const formatMovementsDate = function (date, locale) {
-    const calcDaysPassed = (date1, date2) =>
-      Math.round(Math.abs(date2 - date1) / (1000 * 24 * 60 * 60));
-
-    const daysPassed = calcDaysPassed(new Date(), date);
-
-    if (daysPassed === 0) return `Today`;
-    if (daysPassed === 1) return `Yesterday`;
-    if (daysPassed <= 7) return `${daysPassed} days ago`;
-    else {
-      // const day = `${date.getDate()}`.padStart(2, 0);
-      // const month = `${date.getMonth() + 1}`.padStart(2, 0);
-      // const year = date.getFullYear();
-      // return `${day}/${month}/${year}`;
-      return new Intl.DateTimeFormat(locale).format(date);
-    }
-  };
 
   // Create a new object to fix the BUG of sort part
   const combinedMovsDates = acc.movements.map((mov, i) => ({
@@ -138,13 +145,15 @@ const displayMovements = function (acc, sort = false) {
       acc.locale
     );
 
+    const formatedMov = formatCur(movement, acc.locale, acc.currency);
+
     const html = `
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${
       index + 1
     } ${type}</div>
     <div class="movements__date">${displayDate}</div>
-          <div class="movements__value">${movement.toFixed(2)}€</div>
+          <div class="movements__value">${formatedMov}</div>
         </div>
       `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -153,10 +162,8 @@ const displayMovements = function (acc, sort = false) {
 
 // display balance
 const displayBalace = function (acc) {
-  acc.balace = acc.movements.reduce(function (accu, mov) {
-    return accu + mov;
-  }, 0);
-  labelBalance.textContent = `${acc.balace.toFixed(2)} €`;
+  acc.balace = acc.movements.reduce((accu, mov) => accu + mov, 0);
+  labelBalance.textContent = formatCur(acc.balace, acc.locale, acc.currency);
 };
 
 // display the summary of movements in (in, out, interest)
@@ -165,19 +172,23 @@ const displaySummary = function (acc) {
   const sumIn = acc.movements
     .filter(value => value > 0)
     .reduce((accu, value) => accu + value, 0);
-  labelSumIn.textContent = `${sumIn.toFixed(2)}€`;
+  labelSumIn.textContent = formatCur(sumIn, acc.locale, acc.currency);
   // Out
   const sumOut = acc.movements
     .filter(value => value < 0)
     .reduce((accu, value) => accu + value, 0);
-  labelSumOut.textContent = `${Math.abs(sumOut).toFixed(2)}€`;
+  labelSumOut.textContent = formatCur(sumOut, acc.locale, acc.currency);
   // Interest
   const sumInterest = acc.movements
     .filter(value => value > 0)
     .map(value => (value * acc.interestRate) / 100)
     .filter(interest => interest > 1)
     .reduce((accu, value) => accu + value, 0);
-  labelSumInterest.textContent = `${sumInterest.toFixed(2)}€`;
+  labelSumInterest.textContent = formatCur(
+    sumInterest,
+    acc.locale,
+    acc.currency
+  );
   console.log(sumInterest);
 };
 
