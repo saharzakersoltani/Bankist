@@ -203,7 +203,7 @@ console.log(new Date(1751810676002));
 
 future.setFullYear(2052);
 console.log(future);
-*/
+
 
 /////////////////////////////////////////////////
 // lecture: Operations with dates
@@ -221,3 +221,21 @@ const data1 = console.log(
 const data2 = console.log(
   calcDaysPassed2(new Date(2020, 1, 8), new Date(2020, 4, 10))
 );
+*/
+/////////////////////////////////////////////////
+// lecture: Internationalization Dates (INTL)
+const locale2 = navigator.language;
+
+const option2 = {
+  hour: 'numeric',
+  minute: 'numeric',
+  day: 'numeric',
+  month: 'numeric',
+  date: 'numeric',
+  year: 'numeric',
+  dayperiod: '',
+};
+
+const now2 = new Date();
+
+console.log(new Intl.DateTimeFormat(locale2, option2).format(now2));
