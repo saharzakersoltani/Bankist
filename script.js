@@ -20,10 +20,10 @@ const account1 = {
     '2019-12-23T07:42:02.383Z',
     '2020-01-28T09:15:04.904Z',
     '2020-04-01T10:17:24.185Z',
-    '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2025-06-05T14:11:59.604Z',
+    '2025-07-03T17:01:17.194Z',
+    '2025-07-04T23:36:17.929Z',
+    '2025-07-06T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -84,37 +84,47 @@ const inputClosePin = document.querySelector('.form__input--pin');
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
+  // make a function for display dates
+  const formatMovementsDate = function (date) {
+    const calcDaysPassed = (date1, date2) =>
+      Math.round(Math.abs(date2 - date1) / (1000 * 24 * 60 * 60));
+
+    const daysPassed = calcDaysPassed(new Date(), date);
+
+    if (daysPassed === 0) return `Today`;
+    if (daysPassed === 1) return `Yesterday`;
+    if (daysPassed <= 7) return `${daysPassed} days ago`;
+    else {
+      const day = `${date.getDate()}`.padStart(2, 0);
+      const month = `${date.getMonth() + 1}`.padStart(2, 0);
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
+  };
+
   // Create a new object to fix the BUG of sort part
   const combinedMovsDates = acc.movements.map((mov, i) => ({
     movement: mov,
     movementDates: acc.movementsDates.at(i),
   }));
-  console.log(combinedMovsDates);
 
   if (sort) combinedMovsDates.sort((a, b) => a.movement - b.movement);
-  // const movs = sort
-  //   ? acc.movements.slice().sort((a, b) => a - b)
-  //   : acc.movements; //use slice() to have a shallow copy of movements
+
   combinedMovsDates.forEach(function (obj, index) {
     const { movement, movementDates } = obj;
     const type = movement > 0 ? 'deposit' : 'withdrawal';
 
-    const displayDate = new Date(movementDates);
-    const day = `${displayDate.getDate()}`.padStart(2, 0);
-    const month = `${displayDate.getMonth() + 1}`.padStart(2, 0);
-    const year = displayDate.getFullYear();
+    const displayDate = formatMovementsDate(new Date(movementDates));
 
     const html = `
         <div class="movements__row">
           <div class="movements__type movements__type--${type}">${
       index + 1
     } ${type}</div>
-    <div class="movements__date">${day}/${month}/${year}</div>
+    <div class="movements__date">${displayDate}</div>
           <div class="movements__value">${movement.toFixed(2)}€</div>
         </div>
-    
       `;
-
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
@@ -210,7 +220,6 @@ btnLogin.addEventListener('click', function (e) {
 // transform money part
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
-
   const amount = +inputTransferAmount.value; // + means Number()
   const recieverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
@@ -225,16 +234,18 @@ btnTransfer.addEventListener('click', function (e) {
     // Doing the transfers
     currentAccount.movements.push(-amount);
     recieverAcc.movements.push(amount);
-    // Updated UI
-    display(currentAccount);
-    // clear input fields
-    inputTransferTo.value = inputTransferAmount.value = '';
-    inputTransferAmount.blur();
 
     // Add transfer dates
     currentAccount.movementsDates.push(new Date().toISOString());
     recieverAcc.movementsDates.push(new Date().toISOString());
   }
+
+  // Updated UI
+  display(currentAccount);
+
+  // clear input fields
+  inputTransferTo.value = inputTransferAmount.value = '';
+  inputTransferAmount.blur();
 });
 
 // Close account part

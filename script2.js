@@ -204,3 +204,20 @@ console.log(new Date(1751810676002));
 future.setFullYear(2052);
 console.log(future);
 */
+
+/////////////////////////////////////////////////
+// lecture: Operations with dates
+const future2 = new Date(2020, 3, 8, 13, 25, 30);
+const now2 = new Date(2020, 3, 4, 13, 25, 30);
+console.log((future2 - now2) / (1000 * 24 * 60 * 60));
+
+// Create a function to calculate days passed between two dates
+const calcDaysPassed2 = (day1, day2) =>
+  Math.round(Math.abs((day2 - day1) / (1000 * 24 * 60 * 60)));
+
+const data1 = console.log(
+  calcDaysPassed2(new Date(2020, 5, 8), new Date(2020, 4, 10))
+);
+const data2 = console.log(
+  calcDaysPassed2(new Date(2020, 1, 8), new Date(2020, 4, 10))
+);
