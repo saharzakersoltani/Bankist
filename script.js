@@ -64,6 +64,7 @@ const account3 = {
     '2024-06-25T18:49:59.371Z',
     '2023-07-26T12:01:20.894Z',
   ],
+  currency: 'IRR',
   locale: 'fa-IR',
 };
 
@@ -98,6 +99,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
 // Functions
+
 // make a function for display dates
 const formatMovementsDate = function (date, locale) {
   const calcDaysPassed = (date1, date2) =>
@@ -214,9 +216,35 @@ const display = function (acc) {
   displaySummary(acc);
 };
 
+// Start log out timer
+// NOTE: first we create a setInterval timer simply but then we saw that we logout the page in the 1 seconds that remainded and some how do not see the last second!
+// So we make another function to put all our logics that we have written them before and than call that and put it in our setInternal. The BUG fixed.
+// Then we see another problem: wehen we logged in an account like js and then immediatly alter the account we saw that the timer hadn't stopped!! so we define a <timer> before the btnLogin.addEventListener function... Then this BUG fixed too.
+// Now there is one more thing that we should do it: we want the time count down reset when ever we do some transactions like loan and transfering money. so we should fix this BUG too!
+const startLogOuttimer = function () {
+  let time = 120;
+
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const seconds = String(time % 60).padStart(2, 0);
+    labelTimer.textContent = `${min}:${seconds}`;
+
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = 'Log in to get started';
+      containerApp.style.opacity = 0;
+    }
+    time--;
+  };
+
+  tick();
+  const timer = setInterval(tick, 1000);
+  return timer;
+};
+
 /////////////////////////////////////////////////
 // Event handler
-let currentAccount;
+let currentAccount, timer;
 
 // FAKE ALWAYES LOGGED IN
 // currentAccount = accounts[0];
@@ -239,7 +267,6 @@ btnLogin.addEventListener('click', function (e) {
     labelWelcome.textContent = `Welcome back, ${
       currentAccount.owner.split(' ')[0]
     }`;
-    display(currentAccount);
 
     // Clear input feilds
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -255,10 +282,8 @@ btnLogin.addEventListener('click', function (e) {
       year: 'numeric',
       weekday: 'long',
     };
-
     // const locales = navigator.language;
     // labelDate.textContent = new Intl.DateTimeFormat(locale, option).format(now); // REFERENCE
-
     labelDate.textContent = new Intl.DateTimeFormat(
       currentAccount.locale,
       options
@@ -271,6 +296,11 @@ btnLogin.addEventListener('click', function (e) {
     // const hour = `${now.getHours()}`.padStart(2, 0);
     // const minutes = `${now.getMinutes()}`.padStart(2, 0);
     // labelDate.textContent = `${day}/${month}/${year}, ${hour}:${minutes}`;
+
+    if (timer) clearInterval(timer);
+    timer = startLogOuttimer();
+
+    display(currentAccount);
   }
 });
 
@@ -295,6 +325,10 @@ btnTransfer.addEventListener('click', function (e) {
     // Add transfer dates
     currentAccount.movementsDates.push(new Date().toISOString());
     recieverAcc.movementsDates.push(new Date().toISOString());
+
+    // Set the timer count down reset
+    clearInterval(timer);
+    timer = startLogOuttimer();
   }
 
   // Updated UI
@@ -338,6 +372,10 @@ btnLoan.addEventListener('click', function (e) {
       currentAccount.movements.push(Math.floor(amount));
       // Add transfer dates
       currentAccount.movementsDates.push(new Date().toISOString());
+
+      clearInterval(timer);
+      timer = startLogOuttimer();
+
       // Display UI
       display(currentAccount);
     }, 3000);

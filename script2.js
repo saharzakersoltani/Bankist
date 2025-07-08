@@ -239,7 +239,7 @@ const option2 = {
 const now2 = new Date();
 
 console.log(new Intl.DateTimeFormat(locale2, option2).format(now2));
-*/
+
 
 /////////////////////////////////////////////////
 // lecture: Internationalization Numbers (INTL)
@@ -289,3 +289,4 @@ setInterval(function () {
   const now = new Date();
   console.log(now);
 }, 1000);
+*/
