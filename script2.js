@@ -258,3 +258,34 @@ console.log(new Intl.NumberFormat('fa-IR', options1).format(number1));
 console.log(
   new Intl.NumberFormat(navigator.language, options1).format(number1)
 );
+
+/////////////////////////////////////////////////
+// lecture: Timers set timeout and set interval
+// set timeout
+
+// task1: we want to have our pizza exactly after 3 seconds from ordered time.
+
+// way1
+const pizzaTimer1 = setTimeout(
+  (ing1, ing2) => console.log(`Your pizza ${ing1} and ${ing2} is delivered🍕`),
+  5000,
+  'olives',
+  'tomato'
+);
+
+// way2
+const ingredients2 = ['olives', 'tomato'];
+const pizzaTimer2 = setTimeout(
+  (ing1, ing2) => console.log(`Here is your pizza ${ing1} ${ing2}🍕`),
+  5000,
+  ...ingredients2
+);
+
+// task2: if the pizza has olives i want to cancle the ordre
+if (ingredients2.includes('olives')) clearTimeout(pizzaTimer2); // Cancle the timeout
+
+// set interval
+setInterval(function () {
+  const now = new Date();
+  console.log(now);
+}, 1000);

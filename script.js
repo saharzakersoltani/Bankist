@@ -332,15 +332,19 @@ btnLoan.addEventListener('click', function (e) {
   const amount = Number(inputLoanAmount.value);
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
-    // Add movement
-    currentAccount.movements.push(Math.floor(amount));
-    // Add transfer dates
-    currentAccount.movementsDates.push(new Date().toISOString());
+    // set timeout to get loan after 3 seconds
+    setTimeout(function () {
+      // Add movement
+      currentAccount.movements.push(Math.floor(amount));
+      // Add transfer dates
+      currentAccount.movementsDates.push(new Date().toISOString());
+      // Display UI
+      display(currentAccount);
+    }, 3000);
+
+    // Clear input fields
+    inputLoanAmount.value = '';
   }
-  // Display UI
-  display(currentAccount);
-  // Clear input fields
-  inputLoanAmount.value = '';
 });
 
 // Sort movements part
