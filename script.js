@@ -30,13 +30,6 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
-// Scroll smoothly
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
-
-btnScrollTo.addEventListener('click', function () {
-  section1.scrollIntoView({ behavior: 'smooth' });
-});
 ///////////////////////////////////////
 ///////////////lecture/////////////////
 /*
@@ -139,3 +132,22 @@ message.classList.toggle('c');
 
 message.className = 'Sahar'; // Do not use
 */
+
+// lecture: implementing smooth scrolling
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function () {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+// lecture: Types of Events and Event Handlers
+const h1 = document.querySelector('h1');
+
+const h1Alert = function (e) {
+  alert('You are reading the main header!');
+};
+
+h1.addEventListener('mouseenter', h1Alert);
+
+setTimeout(() => h1.removeEventListener('mouseenter', h1Alert), 3000);
