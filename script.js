@@ -61,10 +61,10 @@ const message = document.createElement('div');
 message.classList.add('cookie-message');
 // message.textContent = 'This is a cookie to make the page functionality.';
 message.innerHTML =
-  'This is a cookie to make the page functionality. <button class="btn btn--close-cookie">click on me</button>';
+  '<h4 class = "message-text">This is a cookie to make the page functionality.</h4> <button class="btn btn--close-cookie">click on me</button>';
 
-// mainHeader.append(message);
-mainHeader.prepend(message);
+mainHeader.append(message);
+// mainHeader.prepend(message);
 // mainHeader.append(message.cloneNode(true));
 // mainHeader.after(message);
 // mainHeader.before(message);
@@ -76,3 +76,58 @@ document
     message.remove();
     // message.parentElement.removeChild(message);
   });
+
+///////////////////////////////////////
+// lecture: Styles, Attributes, and classes
+
+console.log(message.style.backgroundColor);
+console.log(message.style.width);
+
+message.style.width = '120%';
+message.style.backgroundColor = '#ff00ff';
+
+console.log(getComputedStyle(message));
+console.log(getComputedStyle(message).height);
+console.log(getComputedStyle(message).color);
+
+message.style.height =
+  Number.parseInt(getComputedStyle(message).height) + 43 + 'px';
+
+document.documentElement.style.setProperty('--color-primary', 'red');
+
+const messageText = document.querySelector('.message-text');
+messageText.style.color = 'red';
+
+// Attributes       like src, href, alt in HTML file
+const logo = document.querySelector('.nav__logo');
+
+console.log(logo.alt);
+console.log(logo.className);
+
+console.log(logo.src);
+console.log(logo.getAttribute('src'));
+
+logo.alt = 'This is such a beautiful logo!';
+console.log(logo.alt);
+logo.setAttribute('alt', 'just a logo');
+console.log(logo.alt);
+
+console.log(logo.designer); // undefined attribute
+console.log(logo.getAttribute('designer'));
+logo.setAttribute('designer', 'sahar zaker soltani');
+
+const twitterLink = document.querySelector('.twitter-link');
+console.log(twitterLink.href);
+twitterLink.setAttribute('href', '#');
+console.log(twitterLink.getAttribute('href'));
+
+// Data attributes
+console.log(logo.dataset.versionNumber);
+
+// Classes
+message.classList.add('c', 'b');
+message.classList.remove('b');
+message.classList.contains('b'); // Not includes in array
+message.classList.toggle('c');
+
+message.className = 'Sahar'; // Do not use
