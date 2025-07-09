@@ -30,9 +30,16 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+// Scroll smoothly
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function () {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
 ///////////////////////////////////////
 ///////////////lecture/////////////////
-
+/*
 ///////////////////////////////////////
 // lecture: Selecting, Creating, and deleting
 // Selecting
@@ -131,3 +138,4 @@ message.classList.contains('b'); // Not includes in array
 message.classList.toggle('c');
 
 message.className = 'Sahar'; // Do not use
+*/
