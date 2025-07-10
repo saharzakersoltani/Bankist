@@ -131,8 +131,8 @@ message.classList.contains('b'); // Not includes in array
 message.classList.toggle('c');
 
 message.className = 'Sahar'; // Do not use
-*/
 
+///////////////////////////////////////
 // lecture: implementing smooth scrolling
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
@@ -141,6 +141,7 @@ btnScrollTo.addEventListener('click', function () {
   section1.scrollIntoView({ behavior: 'smooth' });
 });
 
+///////////////////////////////////////
 // lecture: Types of Events and Event Handlers
 const h1 = document.querySelector('h1');
 
@@ -151,3 +152,43 @@ const h1Alert = function (e) {
 h1.addEventListener('mouseenter', h1Alert);
 
 setTimeout(() => h1.removeEventListener('mouseenter', h1Alert), 3000);
+*/
+
+///////////////////////////////////////
+// lecture: Event propagination
+// RGB(255, 255, 255)
+
+const randomInt = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+};
+
+const randomColor = () =>
+  `RGB(${randomInt(0, 255)}, ${randomInt(0, 255)}, ${randomInt(0, 255)})`;
+// const randomColor = `RGB(${randomInt(0, 255)}, ${randomInt(
+//   0,
+//   255
+// )}, ${randomInt(0, 255)})`;
+// console.log(randomColor);
+
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('nav__link');
+  console.log(e.target, e.currentTarget);
+  console.log(this === e.target, this === e.currentTarget);
+  // e.stopPropagation();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('nav__links');
+  console.log(e.target, e.currentTarget);
+  console.log(this === e.target, this === e.currentTarget);
+  // Stop propagination
+  //  e.stopPropagation();
+}); // Do not use True for the third argument. IT'S NOT A FGOOD PRACTICE
+
+document.querySelector('.nav').addEventListener('click', function (e) {
+  this.style.backgroundColor = randomColor();
+  console.log('nav');
+  console.log(e.target, e.currentTarget);
+});
