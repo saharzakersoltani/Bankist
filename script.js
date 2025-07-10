@@ -1,12 +1,18 @@
 'use strict';
 
 ///////////////////////////////////////
-// Modal window
-
+// Selections
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+const navLinks = document.querySelector('.nav__links');
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (e) {
   e.preventDefault();
@@ -27,6 +33,45 @@ overlay.addEventListener('click', closeModal);
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
     closeModal();
+  }
+});
+
+///////////////////////////////////////
+// lecture: implementing smooth scrolling
+
+btnScrollTo.addEventListener('click', function (e) {
+  e.preventDefault();
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+///////////////////////////////////////
+// page navigation
+// way1:
+const navLink = document.querySelectorAll('.nav__link');
+
+// navLink.forEach(element => {
+//   element.addEventListener('click', function (e) {
+//     e.preventDefault();
+
+//     const id = this.getAttribute('href');
+//     console.log(id);
+
+//     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//   });
+// });
+
+// Way2: Delegation ✅
+// 1. Add event listener to common parent element
+// 2. Determine what element originated the event
+navLinks.addEventListener('click', function (e) {
+  e.preventDefault();
+  console.log(e.target);
+
+  // matching strategy
+  if (e.target.classList.contains('nav__link')) {
+    const id = e.target.getAttribute('href');
+    console.log(id);
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
 });
 
@@ -152,7 +197,7 @@ const h1Alert = function (e) {
 h1.addEventListener('mouseenter', h1Alert);
 
 setTimeout(() => h1.removeEventListener('mouseenter', h1Alert), 3000);
-*/
+
 
 ///////////////////////////////////////
 // lecture: Event propagination
@@ -192,3 +237,11 @@ document.querySelector('.nav').addEventListener('click', function (e) {
   console.log('nav');
   console.log(e.target, e.currentTarget);
 });
+*/
+
+///////////////////////////////////////
+// lecture: Event delegation implementing page navigation
+// Way1: it reduces the performance because we use forEach() method!
+// Way2: Delegation ✅
+// 1. Add event listener to common parent element
+// 2. Determine what element originated the event
