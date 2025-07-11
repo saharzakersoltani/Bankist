@@ -37,7 +37,7 @@ document.addEventListener('keydown', function (e) {
 });
 
 ///////////////////////////////////////
-// lecture: implementing smooth scrolling
+// implementing smooth scrolling
 
 btnScrollTo.addEventListener('click', function (e) {
   e.preventDefault();
@@ -46,6 +46,7 @@ btnScrollTo.addEventListener('click', function (e) {
 
 ///////////////////////////////////////
 // page navigation
+
 // way1:
 const navLink = document.querySelectorAll('.nav__link');
 
@@ -73,6 +74,35 @@ navLinks.addEventListener('click', function (e) {
     console.log(id);
     document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
   }
+});
+
+///////////////////////////////////////
+// building a tabbed components
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const contents = document.querySelectorAll('.operations__content');
+
+tabsContainer.addEventListener('click', function (e) {
+  e.preventDefault();
+  const clicked = e.target.closest('.operations__tab');
+  console.log(clicked);
+
+  // Activate button
+  if (!clicked) return; // Guard Clause (it's a modern technique)
+
+  tabs.forEach(t => {
+    t.classList.remove('operations__tab--active');
+  });
+  clicked.classList.add('operations__tab--active');
+
+  // Activate content
+  contents.forEach(c => {
+    c.classList.remove('operations__content--active');
+  });
+
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
 });
 
 ///////////////////////////////////////
@@ -237,7 +267,7 @@ document.querySelector('.nav').addEventListener('click', function (e) {
   console.log('nav');
   console.log(e.target, e.currentTarget);
 });
-*/
+
 
 ///////////////////////////////////////
 // lecture: Event delegation implementing page navigation
@@ -276,3 +306,4 @@ console.log([...h1.parentElement.children]);
 [...h1.parentElement.children].forEach(el => {
   if (el !== h1) el.style.transform = 'scale(0.5)';
 });
+*/
