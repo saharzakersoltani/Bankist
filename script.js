@@ -245,3 +245,34 @@ document.querySelector('.nav').addEventListener('click', function (e) {
 // Way2: Delegation ✅
 // 1. Add event listener to common parent element
 // 2. Determine what element originated the event
+
+///////////////////////////////////////
+// lecture: DOM Traversing
+
+// Downwards: Child
+const h1 = document.querySelector('h1');
+
+console.log(h1.querySelectorAll('.highlight'));
+console.log(h1.childNodes);
+console.log(h1.children);
+console.log(h1.firstElementChild);
+console.log(h1.lastElementChild);
+
+// Upwards: Parent
+console.log(h1.parentElement);
+console.log(h1.parentNode);
+console.log(h1.closest('.header'));
+h1.closest('.header').style.backgroundColor = 'var(--color-tertiary-darker)';
+h1.closest('h1').style.backgroundColor = 'var(--color-secondary)';
+
+// Go sideways: Siblings
+console.log(h1.previousElementSibling);
+console.log(h1.nextElementSibling);
+console.log(h1.nextSibling);
+console.log(h1.previousSibling);
+
+console.log(h1.parentElement.children);
+console.log([...h1.parentElement.children]);
+[...h1.parentElement.children].forEach(el => {
+  if (el !== h1) el.style.transform = 'scale(0.5)';
+});
