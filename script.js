@@ -127,14 +127,35 @@ nav.addEventListener('mouseout', handleHover.bind(1));
 
 ///////////////////////////////////////
 // Implementing a sticky navigation
-const initialcoords = section1.getBoundingClientRect();
-console.log(initialcoords);
 
-window.addEventListener('scroll', function () {
-  console.log(window.scrollY);
-  if (window.scrollY > initialcoords.top) nav.classList.add('sticky');
+// way1:                   This way reduce the performance so we should use another way(Intersection observer API)
+// const initialcoords = section1.getBoundingClientRect();
+// console.log(initialcoords);
+
+// window.addEventListener('scroll', function () {
+//   console.log(window.scrollY);
+//   if (window.scrollY > initialcoords.top) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+// Way2:
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+// console.log(navHeight);
+
+const stickyNav = function (entries, obsever) {
+  const [entry] = entries; // get the first entries[0]
+  console.log(entry);
+  if (!entry.isIntersecting) nav.classList.add('sticky');
   else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-${navHeight}px`,
 });
+headerObserver.observe(header);
 
 ///////////////////////////////////////
 ///////////////lecture/////////////////
@@ -337,4 +358,21 @@ console.log([...h1.parentElement.children]);
 [...h1.parentElement.children].forEach(el => {
   if (el !== h1) el.style.transform = 'scale(0.5)';
 });
+
+
+///////////////////////////////////////
+// lecture: Implementing a stocky navigation by intersection observer API
+const obsCallback = function (entries, observer) {
+  entries.forEach(entry => {
+    console.log(entry);
+  });
+};
+
+const obsOptions = {
+  root: null,
+  threshold: [0.1, 0.3],
+};
+
+const observer = new IntersectionObserver(obsCallback, obsOptions);
+observer.observe(section1);
 */
