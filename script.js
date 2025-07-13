@@ -186,7 +186,6 @@ const imgTargets = document.querySelectorAll('img[data-src]');
 
 const loadImg = function (entries, observer) {
   const [entry] = entries;
-  console.log(entry);
   if (!entry.isIntersecting) return;
   // replace src with data-src
   entry.target.src = entry.target.dataset.src;
@@ -508,3 +507,22 @@ const obsOptions = {
 const observer = new IntersectionObserver(obsCallback, obsOptions);
 observer.observe(section1);
 */
+
+///////////////////////////////////////
+// lecture: lifecycle DOM events
+// DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log(e);
+});
+
+// load
+window.addEventListener('load', function (e) {
+  console.log('The page loaded completely', e);
+});
+
+// beforeunload --> Do Not Abuse Users By This Code😉
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   console.log(e);
+//   e.returnValue = '';
+// });
