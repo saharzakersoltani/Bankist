@@ -506,7 +506,7 @@ const obsOptions = {
 
 const observer = new IntersectionObserver(obsCallback, obsOptions);
 observer.observe(section1);
-*/
+
 
 ///////////////////////////////////////
 // lecture: lifecycle DOM events
@@ -526,3 +526,4 @@ window.addEventListener('load', function (e) {
 //   console.log(e);
 //   e.returnValue = '';
 // });
+*/
