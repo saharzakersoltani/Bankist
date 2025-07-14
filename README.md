@@ -1,6 +1,6 @@
 #  Bankist 
 
-A modern, responsive banking web application that simulates a simple online banking experience. Built with vanilla JavaScript, HTML, and CSS — focusing on UI interactions and DOM manipulation.
+A modern, responsive banking web application that simulates a simple online banking experience. Built with JavaScript, HTML, and CSS — focusing on UI interactions and DOM manipulation.
 
 [Live Demo](https://bankist-bank-project.netlify.app/)  
 [GitHub Repo](https://github.com/saharzakersoltani/Bankist)
