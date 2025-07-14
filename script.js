@@ -106,7 +106,7 @@ tabsContainer.addEventListener('click', function (e) {
 });
 
 ///////////////////////////////////////
-// Menu fade animation
+// Header Navigation fade animation
 const nav = document.querySelector('.nav');
 
 const handleHover = function (e, opacity) {
