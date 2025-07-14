@@ -288,6 +288,13 @@ const slider = function () {
   activateDot(0);
 };
 slider();
+
+///////////////////////////////////////
+// Hamburger Menu (ONLY FOR RESPONSIVE)
+const hamburger = document.querySelector('.hamburger__icon');
+
+hamburger.addEventListener('click', openModal);
+
 ///////////////////////////////////////
 ///////////////lecture/////////////////
 ///////////////////////////////////////

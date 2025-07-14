@@ -12,11 +12,6 @@
     line-height: 1.3;
   }
 
-  .nav {
-    /* margin-bottom: 8rem; */
-    /* width: 50%; */
-  }
-
   .nav__link:link,
   .nav__link:visited {
     font-size: 1.6rem;
@@ -45,12 +40,7 @@
 /*///////// under 915px //////////*/
 /*/////////////////////////////////*/
 @media (max-width: 57.19em) {
-  /* html {
-    font-size: 58%;
-  } */
-
   .features {
-    /* column-gap: 6rem; */
     margin: 0 5rem;
   }
 }
@@ -97,6 +87,7 @@
 
   .nav {
     margin-bottom: 2.5rem;
+    height: 6rem;
   }
 
   h1 {
@@ -163,10 +154,46 @@
     display: none;
   }
 
-  /* icon for responssive */
+  /* icon for responsive */
   .hamburger__icon {
     display: block;
-    font-size: 5.8rem;
+    font-size: 5rem;
     color: var(--color-primary);
+  }
+}
+
+/*/////////////////////////////////*/
+/*///////// under 585px //////////*/
+/*/////////////////////////////////*/
+@media (max-width: 36.5em) {
+  h1 {
+    font-size: 3.6rem;
+  }
+
+  .nav {
+    padding: 0 0;
+  }
+
+  .section__header {
+    font-size: 3rem;
+  }
+
+  .features {
+    grid-template-columns: 1fr;
+  }
+
+  .plant__img {
+    grid-row: 3/4;
+  }
+
+  .operations__tab-container {
+    flex-direction: column;
+    row-gap: 1.5rem;
+  }
+
+  .operations__tab {
+    margin-right: 0;
+    align-self: center;
+    width: 100%;
   }
 }
